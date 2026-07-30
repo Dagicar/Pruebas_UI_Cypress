@@ -1,0 +1,36 @@
+name: Suite de Pruebas e2e - Cypress
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar entorno Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 3. Ejecutar Pruebas de Cypress
+        uses: cypress-io/github-action@v6
+
+      - name: 4. Guardar Evidencias (Screenshots) si hay fallos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: 5. Guardar Reportes HTML de Mochawesome
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mochawesome-report
+          path: cypress/reports
