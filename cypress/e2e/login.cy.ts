@@ -13,7 +13,7 @@ describe('Pruebas de Inicio de Sesión usando Page Object Model', () => {
   it('Debe iniciar sesión exitosamente con credenciales válidas', () => {
     loginPage.login('standard_user', 'secret_sauce');
     // Forzamos el error para probar las evidencias
-    inventoryPage.checkTitle('Productos Incorrectos'); 
+    inventoryPage.checkTitle('Products'); 
   });
 
   it('Debe mostrar error al ingresar credenciales incorrectas', () => {
